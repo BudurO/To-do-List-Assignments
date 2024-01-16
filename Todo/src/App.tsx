@@ -1,14 +1,17 @@
-
-import './App.css'
-import Todo from './components/Todo'
+import "./App.css";
+import Todo from "./components/Todo";
+import Todolist from "./components/Todolist";
+import { useStore } from "./store";
 
 function App() {
-
+  const { todlists } = useStore();
+  console.log("todolist", todlists);
   return (
     <>
-     <Todo/>
+      <Todo />
+      <Todolist todlists={todlists}/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

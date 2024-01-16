@@ -1,7 +1,23 @@
-import React from "react";
-import Swal from 'sweetalert2'
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import { useStore } from "../store";
 
 function Todo() {
+  const { add} = useStore();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  // console.log(watch("todolist"));
+  //  console.log(errors);
+
+  const onSubmit = (data) => {
+    add({ data, isCompleted: false }); //{title:"DDD", isCompleted: false }
+  };
+
   return (
     <>
       <div>
@@ -9,28 +25,25 @@ function Todo() {
           <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4">
             <div className="mb-4">
               <h1 className="text-grey-darkest">Todo List</h1>
-              <div className="flex mt-4">
+              <form className="flex mt-4" onSubmit={handleSubmit(onSubmit)}>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
-                  placeholder="Add Todo"
+                  placeholder="Add Todo..."
+                  {...register("title", { required: true })}
                 />
-                <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:bg-slate-50">
+                <button
+                  type="submit"
+                  className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:bg-slate-50"
+                >
                   Add
                 </button>
-              </div>
+              </form>
             </div>
-            <div>
-              <div className="flex mb-4 items-center">
-                <p className="w-full text-grey-darkest">
-                  Add another component to Tailwind Components
-                </p>
-                <button className="flex-no-shrink pl-4 pr-4 ml-4 mr-2 border-2 rounded hover:bg-slate-100 flex gap-2">
-                  <span className="material-symbols-outlined">edit</span>Edit
-                </button>
-                <button className="flex-no-shrink pl-4 pr-4 ml-2 border-2 rounded   hover:bg-red-500  flex gap-2">
-                  <span className="material-symbols-outlined">delete</span>
-                  Delete
-                </button>
+            <div className=" flex justify-between">
+              <div className="flex mb-4 items-center flex-col"></div>
+
+              <div className="flex  items-center">
+               
               </div>
             </div>
           </div>
