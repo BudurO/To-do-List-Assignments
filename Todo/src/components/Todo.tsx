@@ -10,7 +10,11 @@ function Todo() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: ""
+    }
+  });
   // console.log(watch("todolist"));
   //  console.log(errors);
 
@@ -29,7 +33,10 @@ function Todo() {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
                   placeholder="Add Todo..."
-                  {...register("title", { required: true })}
+                  {...register("title", { required: "Please add To Do something", minLength:{
+                    value:3,
+                    message:"minLength is 3"
+                  } })}
                 />
                 <button
                   type="submit"
@@ -38,6 +45,8 @@ function Todo() {
                   Add
                 </button>
               </form>
+              <p className="text-red-600">{errors.title?.message}</p>
+
             </div>
             <div className=" flex justify-between">
               <div className="flex mb-4 items-center flex-col"></div>
