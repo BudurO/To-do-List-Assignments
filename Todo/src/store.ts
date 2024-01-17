@@ -12,7 +12,7 @@ export interface StoreState {
 export interface StoreActions extends StoreState {
   add: (item: ITodo) => void;
   IsCompleted?: (id: number) => void;
-  remove?: (id: number) => void;
+  remove: (id: number) => void;
 }
 
 export const useStore = create<StoreActions>((set) => ({
@@ -31,11 +31,12 @@ export const useStore = create<StoreActions>((set) => ({
     }
     )),
 
-  // remove: (id: number) =>
-  // set((state) =>{
-  //     state.todlists.splice(item)
-  //     return {...state}
-  // }),
+  remove: (id: number) =>
+  set((state) =>({
+    todlists: state.todlists.filter((todo,index) => 
+      index !== id && todo.title 
+    ),
+  }))
   // edit:(item,id)=>
   // set((state) => {
   //     state.todlists.

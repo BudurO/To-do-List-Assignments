@@ -2,7 +2,7 @@ import React from "react";
 import { useStore } from "../store";
 
 function Todolist() {
-  const { todlists , IsCompleted} = useStore();
+  const { todlists , IsCompleted,remove} = useStore();
   console.log("todlists", todlists); // Log to check if todlists is populated
 
   const isCompletedTask = (id: number) =>{
@@ -30,7 +30,7 @@ function Todolist() {
                   <button className="flex-no-shrink pl-4 pr-4 ml-4 mr-2 border-2 rounded hover:bg-slate-100 flex gap-2">
                     <span className="material-symbols-outlined">edit</span>Edit
                   </button>
-                  <button className="flex-no-shrink pl-4 pr-4 ml-2 border-2 rounded   hover:bg-red-500  flex gap-2">
+                  <button onClick={() => {remove(index)}} className="flex-no-shrink pl-4 pr-4 ml-2 border-2 rounded   hover:bg-red-500  flex gap-2">
                     <span className="material-symbols-outlined">delete</span>
                     Delete
                   </button>
