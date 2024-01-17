@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import Swal from "sweetalert2";
+import React from "react";
+// import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
-import { useStore } from "../store";
+import { useStore , ITodo} from "../store";
+
 
 function Todo() {
   const { add} = useStore();
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<ITodo>({
     defaultValues: {
-      title: ""
+      title: "",
     }
   });
-  // console.log(watch("todolist"));
-  //  console.log(errors);
 
-  const onSubmit = (data) => {
-    add({ data, isCompleted: false }); //{title:"DDD", isCompleted: false }
+  const onSubmit = (data: ITodo) => {
+    add({...data, isCompleted: false }); //{title:"DDD", isCompleted: false }
+    reset(); 
   };
 
   return (
