@@ -1,18 +1,40 @@
 import React from "react";
 import { useStore } from "../store";
+import Swal from "sweetalert2";
 
 function Todolist() {
-  const { todlists , IsCompleted,remove} = useStore();
+  const { todlists , IsCompleted,remove,edit} = useStore();
   console.log("todlists", todlists); // Log to check if todlists is populated
 
   const isCompletedTask = (id: number) =>{
     if(IsCompleted){
       IsCompleted(id)
-      // IsCompleted(id.id);
       console.log("id todo",id);  
     }
    
   };
+
+  const editTodo = (id: number) => {
+    const updataTitle = prompt("Enter updated title:")
+    if(edit){
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Save"
+      }).then((result) => {
+          if (result.isConfirmed){
+          if (updataTitle !== null) {
+          edit(id,updataTitle);
+          Swal.fire("Saved!", "", "success");
+        } 
+      }
+      });
+      
+    }
+  }  
   return (
     
       <div className=" flex justify-center">
@@ -27,7 +49,7 @@ function Todolist() {
                 {todo.title}
               </li>
               <div className="flex justify-end">
-                  <button className="flex-no-shrink pl-4 pr-4 ml-4 mr-2 border-2 rounded hover:bg-slate-100 flex gap-2">
+                  <button onClick={() => {editTodo(index)}} className="flex-no-shrink pl-4 pr-4 ml-4 mr-2 border-2 rounded hover:bg-slate-100 flex gap-2">
                     <span className="material-symbols-outlined">edit</span>Edit
                   </button>
                   <button onClick={() => {remove(index)}} className="flex-no-shrink pl-4 pr-4 ml-2 border-2 rounded   hover:bg-red-500  flex gap-2">
@@ -40,6 +62,6 @@ function Todolist() {
         </ul>
       </div>
   );
-}
 
+}
 export default Todolist;
