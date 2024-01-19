@@ -2,8 +2,8 @@ import { create } from "zustand";
 
 export interface ITodo {
   title: string;
-  isCompleted: boolean;
-  updatedTitle: string
+  isCompleted: boolean ;
+  updatedTitle: string;
 }
 
 
